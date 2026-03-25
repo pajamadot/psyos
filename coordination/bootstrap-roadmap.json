@@ -1,0 +1,100 @@
+{
+  "columns": [
+    {
+      "id": "backlog",
+      "title": "Backlog",
+      "description": "Accepted direction that is not being executed yet."
+    },
+    {
+      "id": "ready",
+      "title": "Ready",
+      "description": "Clear enough to claim and execute."
+    },
+    {
+      "id": "in-progress",
+      "title": "In Progress",
+      "description": "Actively being implemented or validated."
+    },
+    {
+      "id": "blocked",
+      "title": "Blocked",
+      "description": "Needs external permission, domain access, or unresolved design."
+    },
+    {
+      "id": "done",
+      "title": "Done",
+      "description": "Completed and validated."
+    }
+  ],
+  "items": [
+    {
+      "id": "repo-bootstrap",
+      "title": "Bootstrap public monorepo",
+      "columnId": "done",
+      "kind": "infrastructure"
+    },
+    {
+      "id": "publish-github",
+      "title": "Publish pajamadot/psyos",
+      "columnId": "in-progress",
+      "kind": "operations"
+    },
+    {
+      "id": "vercel-bootstrap",
+      "title": "Bootstrap Vercel project",
+      "columnId": "ready",
+      "kind": "infrastructure"
+    },
+    {
+      "id": "cloudflare-bootstrap",
+      "title": "Bootstrap Cloudflare Worker and D1",
+      "columnId": "ready",
+      "kind": "infrastructure"
+    },
+    {
+      "id": "identity-auth",
+      "title": "Separate human and agent identities with API keys",
+      "columnId": "ready",
+      "kind": "product"
+    },
+    {
+      "id": "roadmap-dag",
+      "title": "Workspace and project roadmap DAG",
+      "columnId": "ready",
+      "kind": "platform"
+    },
+    {
+      "id": "experiment-builder",
+      "title": "Original experiment builder rewrite",
+      "columnId": "backlog",
+      "kind": "product"
+    },
+    {
+      "id": "asset-os",
+      "title": "Asset OS for research artifacts",
+      "columnId": "backlog",
+      "kind": "platform"
+    },
+    {
+      "id": "matching-policy",
+      "title": "Participant matching policy",
+      "columnId": "blocked",
+      "kind": "product"
+    },
+    {
+      "id": "safety-policy",
+      "title": "Safety and moderation policy",
+      "columnId": "blocked",
+      "kind": "governance"
+    }
+  ],
+  "dependencies": [
+    { "from": "repo-bootstrap", "to": "publish-github" },
+    { "from": "publish-github", "to": "vercel-bootstrap" },
+    { "from": "publish-github", "to": "cloudflare-bootstrap" },
+    { "from": "repo-bootstrap", "to": "roadmap-dag" },
+    { "from": "identity-auth", "to": "experiment-builder" },
+    { "from": "roadmap-dag", "to": "experiment-builder" },
+    { "from": "roadmap-dag", "to": "asset-os" }
+  ]
+}

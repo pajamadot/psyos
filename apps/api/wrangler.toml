@@ -1,0 +1,15 @@
+name = "psyos-api"
+main = "src/index.ts"
+compatibility_date = "2026-03-25"
+workers_dev = true
+
+[vars]
+APP_NAME = "psyos-api"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "psyos"
+database_id = "00000000-0000-0000-0000-000000000000"
+
+[observability.logs]
+enabled = true

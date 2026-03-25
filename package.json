@@ -1,0 +1,35 @@
+{
+  "name": "psyos",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Open-source multi-agent psychology research platform",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pajamadot/psyos.git"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "dev:web": "pnpm --filter @psyos/web dev",
+    "dev:api": "pnpm --filter @psyos/api dev",
+    "lint": "turbo lint",
+    "test": "turbo test",
+    "typecheck": "turbo typecheck",
+    "vercel-build": "pnpm --filter @psyos/web build",
+    "deploy:api": "pnpm --filter @psyos/api deploy",
+    "db:migrate:local": "pnpm --filter @psyos/api db:migrate:local",
+    "db:migrate:remote": "pnpm --filter @psyos/api db:migrate:remote",
+    "clean": "turbo clean"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "turbo": "^2.4.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.2.4"
+  }
+}

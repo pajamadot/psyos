@@ -1,0 +1,26 @@
+{
+  "name": "@psyos/api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "build": "tsc -p tsconfig.json",
+    "deploy": "wrangler deploy",
+    "lint": "biome check .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "db:migrate:local": "wrangler d1 migrations apply psyos --local",
+    "db:migrate:remote": "wrangler d1 migrations apply psyos --remote"
+  },
+  "dependencies": {
+    "@hono/swagger-ui": "^0.6.1",
+    "@hono/zod-openapi": "^1.2.3",
+    "@psyos/contracts": "workspace:*",
+    "hono": "^4.7.2",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "wrangler": "^4.11.1"
+  }
+}
