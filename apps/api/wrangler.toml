@@ -9,7 +9,7 @@ APP_NAME = "psyos-api"
 [[d1_databases]]
 binding = "DB"
 database_name = "psyos"
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "2608b749-ef3f-4ce0-9722-880863b61ac2"
 
 [observability.logs]
 enabled = true
