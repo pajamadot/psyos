@@ -1,0 +1,52 @@
+name: Meta Iteration
+description: Improve PsyOS itself, its workflows, control surfaces, or operator experience.
+title: "[Meta] "
+labels:
+  - type:meta-iteration
+  - status:triage
+body:
+  - type: textarea
+    id: current-signal
+    attributes:
+      label: Current signal
+      description: What friction, contradiction, hidden workflow, or repeated failure triggered this iteration?
+      placeholder: The current deploy flow depends on operator memory and is not visible in repo docs.
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - Infrastructure
+        - Environment and secrets
+        - Observability
+        - Roadmap and control plane
+        - Study runtime or packages
+        - Documentation and OSS operator UX
+    validations:
+      required: true
+  - type: textarea
+    id: chosen-mutation
+    attributes:
+      label: Chosen mutation
+      description: What narrow change should land in this iteration?
+      placeholder: Add deploy smoke checks and document the rollback-safe bootstrap path.
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation
+      description: What checks will prove the mutation landed correctly?
+      placeholder: Verify web and API entrypoints, run the relevant local checks, and confirm docs/contracts point at the same workflow.
+    validations:
+      required: true
+  - type: textarea
+    id: next-constraint
+    attributes:
+      label: Next constraint
+      description: What should the following iteration attack once this one lands?
+      placeholder: After deploy smoke checks exist, codify preview topology and secret scopes.
+    validations:
+      required: true

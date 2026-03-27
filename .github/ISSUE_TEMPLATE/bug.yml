@@ -1,0 +1,39 @@
+name: Bug Or Regression
+description: Track incorrect behavior relative to locked contracts, docs, or deployed surfaces.
+title: "[Bug] "
+labels:
+  - type:bug
+  - status:triage
+body:
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed behavior
+      description: What is happening right now?
+      placeholder: The workspace settings page returns a 500 when requesting a magic link in preview mode.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should happen instead?
+      placeholder: The page should return a structured auth error or a successful request-link response.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and surface
+      description: Which API routes, docs, pages, or runtime surfaces are affected?
+      placeholder: apps/api auth routes, workspace settings page, smoke checks.
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation
+      description: What checks should prove the fix?
+      placeholder: Reproduce locally, add regression coverage, and verify the affected live route or smoke path.
+    validations:
+      required: true

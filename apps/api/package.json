@@ -4,13 +4,17 @@
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
+    "dev:e2e": "tsx src/e2e-server.ts",
     "build": "tsc -p tsconfig.json",
     "deploy": "wrangler deploy",
     "lint": "biome check .",
     "typecheck": "tsc --noEmit",
+    "pretest": "pnpm --filter @psyos/contracts build",
     "test": "vitest run",
     "db:migrate:local": "wrangler d1 migrations apply psyos --local",
-    "db:migrate:remote": "wrangler d1 migrations apply psyos --remote"
+    "db:migrate:remote": "wrangler d1 migrations apply psyos --remote",
+    "db:seed:local": "wrangler d1 execute psyos --local --file ./seeds/0001_dogfood.sql",
+    "db:seed:remote": "wrangler d1 execute psyos --remote --file ./seeds/0001_dogfood.sql"
   },
   "dependencies": {
     "@hono/swagger-ui": "^0.6.1",
@@ -20,6 +24,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@hono/node-server": "^1.19.11",
     "@types/node": "^22.10.1",
     "wrangler": "^4.11.1"
   }

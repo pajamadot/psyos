@@ -1,0 +1,50 @@
+[
+  {
+    "id": "deployment-smoke-checks",
+    "whenToUse": [
+      "new deploy topology is in place",
+      "domains or health endpoints changed",
+      "bootstrap infra still feels tribal"
+    ],
+    "strategy": "harden",
+    "steps": [
+      "inspect deploy docs and live endpoints",
+      "patch missing validation steps",
+      "add or improve smoke-check commands",
+      "record the exact verification path",
+      "log the event"
+    ]
+  },
+  {
+    "id": "meta-workflow-tightening",
+    "whenToUse": [
+      "iteration requests are vague",
+      "contributors lack a repeatable self-improvement loop",
+      "repo and workflow state drift apart"
+    ],
+    "strategy": "balanced",
+    "steps": [
+      "identify the recurring friction",
+      "turn it into a shared workflow or skill",
+      "patch docs and collaboration surfaces",
+      "validate references and repo alignment",
+      "log the event"
+    ]
+  },
+  {
+    "id": "gap-surface-upgrade",
+    "whenToUse": [
+      "missing artifacts are found late",
+      "agents cannot tell what the next blocking gap is",
+      "the control plane is present but under-specified"
+    ],
+    "strategy": "innovate",
+    "steps": [
+      "identify the missing state surface",
+      "express it through API, docs, or contracts",
+      "avoid domain-specific overfitting",
+      "validate the new surface",
+      "log the event"
+    ]
+  }
+]

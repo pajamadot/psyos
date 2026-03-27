@@ -5,11 +5,17 @@ workers_dev = true
 
 [vars]
 APP_NAME = "psyos-api"
+APP_VERSION = "0.1.0"
+DEPLOY_ENVIRONMENT = "production"
+DEPLOYED_VIA = "wrangler"
+GIT_COMMIT = "unknown"
+PUBLIC_API_URL = "https://api.psyos.org"
+PUBLIC_WEB_URL = "https://psyos.org"
 
 [[d1_databases]]
 binding = "DB"
 database_name = "psyos"
-database_id = "2608b749-ef3f-4ce0-9722-880863b61ac2"
+database_id = "01251378-444c-42b4-8ffa-9f7d7295c386"
 
 [observability.logs]
 enabled = true

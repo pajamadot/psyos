@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: PsyOS Collaboration Workflow
+    url: https://github.com/pajamadot/psyos/blob/main/docs/collaboration-workflow.md
+    about: Read the shared contribution and iteration workflow before opening broad platform issues.
+  - name: PsyOS Issue Label Palette
+    url: https://github.com/pajamadot/psyos/blob/main/docs/issue-label-palette.md
+    about: Feature development is issue-first and color-label-first. Read the label policy before starting work.

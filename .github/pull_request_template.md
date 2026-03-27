@@ -2,7 +2,15 @@
 
 - 
 
+## Current Signal
+
+- 
+
 ## Why
+
+- 
+
+## Strategy
 
 - 
 
@@ -14,5 +22,9 @@
 - [ ] `pnpm build`
 
 ## Infra Notes
+
+- 
+
+## Next Constraint
 
 - 

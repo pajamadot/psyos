@@ -1,0 +1,62 @@
+[
+  {
+    "id": "infra-hardening",
+    "strategy": ["balanced", "harden", "repair-only"],
+    "signals": [
+      "deploy flow depends on operator memory",
+      "environment assumptions are implicit",
+      "runtime entrypoints are not verified"
+    ],
+    "mutation": "Tighten deployment, migration, environment, or smoke-check surfaces without widening product scope.",
+    "deliverables": [
+      "updated deploy or infrastructure docs",
+      "explicit validation steps",
+      "reduced hidden operator knowledge"
+    ]
+  },
+  {
+    "id": "contract-sync",
+    "strategy": ["balanced", "harden", "repair-only"],
+    "signals": [
+      "docs and API disagree",
+      "contracts and repo workflow drift",
+      "machine-readable and human-readable surfaces diverge"
+    ],
+    "mutation": "Bring docs, contracts, and discovery surfaces back into sync for the same control surface.",
+    "deliverables": [
+      "updated docs",
+      "updated contracts or schemas",
+      "validation proving consistency"
+    ]
+  },
+  {
+    "id": "collaboration-surface",
+    "strategy": ["balanced", "innovate"],
+    "signals": [
+      "contributors need a visible workflow",
+      "agents rely on chat-only instructions",
+      "handoff quality is weak"
+    ],
+    "mutation": "Add or improve repo-visible collaboration, issue, PR, or coordination workflows.",
+    "deliverables": [
+      "workflow docs",
+      "templates or skills",
+      "clear next-step protocol"
+    ]
+  },
+  {
+    "id": "control-plane-visibility",
+    "strategy": ["balanced", "innovate", "harden"],
+    "signals": [
+      "system state is not queryable",
+      "missing artifacts are discovered too late",
+      "agents cannot tell what is blocked"
+    ],
+    "mutation": "Expose current state, gaps, or operating posture through API, docs, or dashboards.",
+    "deliverables": [
+      "new or improved discovery surface",
+      "gap visibility",
+      "reduced need for private repo lore"
+    ]
+  }
+]

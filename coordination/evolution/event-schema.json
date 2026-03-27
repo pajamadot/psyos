@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://psyos.org/schemas/evolution-event.json",
+  "title": "Evolution Event",
+  "type": "object",
+  "required": [
+    "timestamp",
+    "strategy",
+    "signal",
+    "mutation",
+    "validation",
+    "nextConstraint"
+  ],
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "strategy": {
+      "type": "string",
+      "enum": ["balanced", "harden", "innovate", "repair-only"]
+    },
+    "signal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "geneId": {
+      "type": "string"
+    },
+    "capsuleId": {
+      "type": "string"
+    },
+    "mutation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "validation": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "nextConstraint": {
+      "type": "string",
+      "minLength": 1
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

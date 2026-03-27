@@ -1,0 +1,39 @@
+name: Feature Slice
+description: Propose or track a narrow user-facing or platform-facing capability.
+title: "[Slice] "
+labels:
+  - type:feature-slice
+  - status:triage
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user, operator, or agent problem does this slice solve?
+      placeholder: Researchers need a code-first study package that can be published without relying on hidden local setup.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: What is explicitly in and out of scope?
+      placeholder: In scope: package schema, one template, and publish metadata. Out of scope: visual editor parity.
+    validations:
+      required: true
+  - type: textarea
+    id: control-surfaces
+    attributes:
+      label: Control surfaces touched
+      description: Which docs, contracts, API surfaces, or workflows must move with this slice?
+      placeholder: packages/contracts, docs/product-decisions.md, docs/roadmap.md, apps/api routes.
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation
+      description: What evidence will show this slice is correct?
+      placeholder: Typecheck, tests, build, and one end-to-end smoke path through the new surface.
+    validations:
+      required: true
