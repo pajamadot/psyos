@@ -176,6 +176,8 @@ const buildAllowedOrigins = (bindings: Bindings) => {
     "http://127.0.0.1:3000",
     "http://localhost:3001",
     "http://127.0.0.1:3001",
+    "http://localhost:3100",
+    "http://127.0.0.1:3100",
   ]);
 
   try {
@@ -3465,7 +3467,7 @@ const buildAuthConfig = (bindings: Bindings) => {
   };
 };
 
-const applyAuthCorsHeaders = (context: CorsContextLike) => {
+const applyApiCorsHeaders = (context: CorsContextLike) => {
   const bindings = getBindings(context);
   const origin = context.req.header("origin");
   if (!origin) return;
@@ -3476,7 +3478,10 @@ const applyAuthCorsHeaders = (context: CorsContextLike) => {
   context.header("Access-Control-Allow-Origin", origin);
   context.header("Access-Control-Allow-Credentials", "true");
   context.header("Access-Control-Allow-Headers", "content-type");
-  context.header("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+  context.header(
+    "Access-Control-Allow-Methods",
+    "GET,POST,PATCH,DELETE,OPTIONS",
+  );
   context.header("Vary", "Origin");
 };
 
@@ -3554,8 +3559,8 @@ app.use("*", async (context, next) => {
   context.header("x-psyos-commit", getGitCommit(env));
 });
 
-app.use("/api/v1/auth/*", async (context, next) => {
-  applyAuthCorsHeaders(context);
+app.use("/api/v1/*", async (context, next) => {
+  applyApiCorsHeaders(context);
 
   if (context.req.method === "OPTIONS") {
     return new Response(null, {
@@ -3565,7 +3570,7 @@ app.use("/api/v1/auth/*", async (context, next) => {
   }
 
   await next();
-  applyAuthCorsHeaders(context);
+  applyApiCorsHeaders(context);
 });
 
 app.doc("/api/v1/openapi.json", {

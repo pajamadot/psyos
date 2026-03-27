@@ -143,11 +143,15 @@ export const studyRunSchema = z.object({
   id: z.string().min(1),
   workspaceId: z.string().min(1),
   projectId: z.string().min(1),
+  projectSlug: z.string().min(1),
   studyId: z.string().min(1),
+  studySlug: z.string().min(1),
   actorIdentityId: z.string().min(1).nullable().optional(),
+  actorHandle: z.string().nullable().optional(),
   participantKind: actorKindSchema,
   status: studyRunStatusSchema,
   eventCount: z.number().int().nonnegative(),
+  summary: z.record(z.string(), z.unknown()),
   createdAt: z.string().min(1),
   completedAt: z.string().nullable().optional(),
 });
@@ -329,6 +333,58 @@ export const workspaceAssetManifestSchema = z.object({
   warning: z.string().optional(),
 });
 
+export const studyPublicationRecordSchema = z.object({
+  id: z.string().min(1),
+  studyId: z.string().min(1),
+  version: z.number().int().positive(),
+  changelog: z.string().nullable().optional(),
+  publishedAt: z.string().min(1),
+});
+
+export const studyPublishSchema = z.object({
+  changelog: z.string().min(1).max(4000).optional(),
+});
+
+export const studyPublishResponseSchema = z.object({
+  ok: z.literal(true),
+  study: dogfoodStudySchema,
+  publication: studyPublicationRecordSchema,
+});
+
+export const opportunityMutationSchema = z.object({
+  targetKind: opportunityTargetKindSchema.optional(),
+  status: opportunityStatusSchema.optional(),
+  instructionsMd: z.string().min(1).max(6000).nullable().optional(),
+  eligibility: z.record(z.string(), z.unknown()).optional(),
+});
+
+export const opportunityMutationResponseSchema = z.object({
+  ok: z.literal(true),
+  opportunity: opportunitySummarySchema,
+});
+
+export const studyRunIngestionSchema = z.object({
+  status: studyRunStatusSchema.default("completed"),
+  eventCount: z.number().int().nonnegative().optional(),
+  summary: z.record(z.string(), z.unknown()).optional(),
+  completedAt: z.string().datetime().nullable().optional(),
+});
+
+export const studyRunMutationResponseSchema = z.object({
+  ok: z.literal(true),
+  run: studyRunSchema,
+});
+
+export const studyRunsResponseSchema = z.object({
+  generatedAt: z.string().min(1),
+  workspace: workspaceSummarySchema.nullable(),
+  access: workspaceAccessSchema,
+  study: dogfoodStudySchema.nullable(),
+  runs: z.array(studyRunSchema),
+  source: z.string().optional(),
+  warning: z.string().optional(),
+});
+
 export const authProviderSchema = z.object({
   id: z.string().min(1),
   label: z.string().min(1),
@@ -501,6 +557,9 @@ export type ParticipationOpportunity = z.infer<
 export type StudyRunStatus = z.infer<typeof studyRunStatusSchema>;
 export type StudyRun = z.infer<typeof studyRunSchema>;
 export type OpportunitySummary = z.infer<typeof opportunitySummarySchema>;
+export type StudyPublicationRecord = z.infer<
+  typeof studyPublicationRecordSchema
+>;
 export type ApiKey = z.infer<typeof apiKeySchema>;
 export type RoadmapItem = z.infer<typeof roadmapItemSchema>;
 export type AssetRecord = z.infer<typeof assetRecordSchema>;
@@ -523,6 +582,17 @@ export type AuthWorkspaceIdentity = z.infer<typeof authWorkspaceIdentitySchema>;
 export type AuthSession = z.infer<typeof authSessionSchema>;
 export type AuthManagedSession = z.infer<typeof authManagedSessionSchema>;
 export type AuthSessionInventory = z.infer<typeof authSessionInventorySchema>;
+export type StudyPublish = z.infer<typeof studyPublishSchema>;
+export type StudyPublishResponse = z.infer<typeof studyPublishResponseSchema>;
+export type OpportunityMutation = z.infer<typeof opportunityMutationSchema>;
+export type OpportunityMutationResponse = z.infer<
+  typeof opportunityMutationResponseSchema
+>;
+export type StudyRunIngestion = z.infer<typeof studyRunIngestionSchema>;
+export type StudyRunMutationResponse = z.infer<
+  typeof studyRunMutationResponseSchema
+>;
+export type StudyRunsResponse = z.infer<typeof studyRunsResponseSchema>;
 export type AuthEmailRequest = z.infer<typeof authEmailRequestSchema>;
 export type AuthEmailRequestResponse = z.infer<
   typeof authEmailRequestResponseSchema

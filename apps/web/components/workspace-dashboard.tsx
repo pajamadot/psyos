@@ -8,6 +8,7 @@ import {
 } from "@psyos/contracts";
 
 import { WorkspaceRoadmapPanel } from "./workspace-roadmap";
+import { WorkspaceStudyControlSurface } from "./workspace-study-control-surface";
 
 type WorkspaceDashboardProps = {
   apiBaseUrl: string;
@@ -180,72 +181,11 @@ export function WorkspaceDashboard({
             identities.
           </p>
         </div>
-
-        <div className="study-grid">
-          {snapshot.studies.map((study) => (
-            <article className="study-card" key={study.id}>
-              <div className="card-topline">
-                <span className="status-chip">{study.status}</span>
-                <span className="project-chip">{study.projectSlug}</span>
-              </div>
-              <h3>{study.title}</h3>
-              <p>{study.summary}</p>
-              <ul className="metric-list">
-                <li>
-                  <span>Lead</span>
-                  <strong>{study.leadHandle}</strong>
-                </li>
-                <li>
-                  <span>Duration</span>
-                  <strong>
-                    {study.estimatedDurationMinutes
-                      ? `${study.estimatedDurationMinutes} min`
-                      : "TBD"}
-                  </strong>
-                </li>
-                <li>
-                  <span>Package</span>
-                  <strong>{study.packageId ?? "unpackaged"}</strong>
-                </li>
-                <li>
-                  <span>Version</span>
-                  <strong>v{study.latestVersion}</strong>
-                </li>
-              </ul>
-              <div className="token-row">
-                {study.nodeTypes.map((nodeType) => (
-                  <span key={`${study.id}-${nodeType}`}>{nodeType}</span>
-                ))}
-              </div>
-              <div className="token-row muted-row">
-                {study.outputs.map((output) => (
-                  <span key={`${study.id}-${output}`}>{output}</span>
-                ))}
-              </div>
-            </article>
-          ))}
-        </div>
-
-        <div className="opportunity-grid">
-          {openOpportunities.map((opportunity) => (
-            <article
-              className="workspace-panel opportunity-card"
-              key={opportunity.id}
-            >
-              <p className="panel-kicker">Open Call</p>
-              <h3>{opportunity.studyTitle}</h3>
-              <p>
-                {opportunity.instructionsMd ??
-                  "Instructions not published yet."}
-              </p>
-              <div className="token-row">
-                <span>{opportunity.targetKind}</span>
-                <span>{opportunity.status}</span>
-                <span>{opportunity.studySlug}</span>
-              </div>
-            </article>
-          ))}
-        </div>
+        <WorkspaceStudyControlSurface
+          apiBaseUrl={apiBaseUrl}
+          initialSnapshot={snapshot}
+          workspaceSlug={workspaceSlug}
+        />
       </section>
 
       <section className="workspace-section asset-section" id="assets">

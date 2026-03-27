@@ -262,17 +262,25 @@ describe("psyos contracts", () => {
       id: "run_001",
       workspaceId: "workspace_001",
       projectId: "project_001",
+      projectSlug: "reaction-time-baseline",
       studyId: "study_001",
+      studySlug: "reaction-time-baseline",
       actorIdentityId: "identity_001",
+      actorHandle: "psyos-human-operator",
       participantKind: "human",
       status: "completed",
       eventCount: 42,
+      summary: {
+        source: "contract-test",
+        latency_ms: 241,
+      },
       createdAt: "2026-03-25T00:00:00.000Z",
       completedAt: "2026-03-25T00:05:00.000Z",
     });
 
     expect(parsed.status).toBe("completed");
     expect(parsed.eventCount).toBe(42);
+    expect(parsed.summary.source).toBe("contract-test");
   });
 
   it("validates auth email request responses", () => {

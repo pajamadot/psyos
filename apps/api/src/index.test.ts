@@ -96,6 +96,46 @@ describe("psyos api", () => {
     });
   });
 
+  it("applies browser CORS headers across workspace control-plane routes", async () => {
+    const response = await app.request(
+      "/api/v1/workspaces/psyos-lab/snapshot",
+      {
+        headers: {
+          origin: "http://127.0.0.1:3100",
+        },
+      },
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get("access-control-allow-origin")).toBe(
+      "http://127.0.0.1:3100",
+    );
+    expect(response.headers.get("access-control-allow-credentials")).toBe(
+      "true",
+    );
+  });
+
+  it("answers API preflight requests for browser mutations", async () => {
+    const response = await app.request(
+      "/api/v1/workspaces/psyos-lab/studies/reaction-time-baseline/runs",
+      {
+        method: "OPTIONS",
+        headers: {
+          origin: "http://127.0.0.1:3100",
+          "access-control-request-method": "POST",
+        },
+      },
+    );
+
+    expect(response.status).toBe(204);
+    expect(response.headers.get("access-control-allow-origin")).toBe(
+      "http://127.0.0.1:3100",
+    );
+    expect(response.headers.get("access-control-allow-methods")).toContain(
+      "POST",
+    );
+  });
+
   it("serves an anonymous auth session without D1", async () => {
     const response = await app.request(
       "/api/v1/auth/session?workspaceSlug=psyos-lab",

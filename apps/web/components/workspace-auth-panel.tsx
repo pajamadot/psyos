@@ -19,31 +19,17 @@ import {
   authSessionSchema,
 } from "@psyos/contracts";
 
+import {
+  fetchBrowserApi,
+  getBrowserApiBaseUrl,
+  parseApiResponse,
+} from "../lib/browser-api";
+
 type WorkspaceAuthPanelProps = {
   workspaceSlug: string;
 };
 
-const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL ?? "https://api.psyos.org";
-
-async function parseResponse<T>(
-  response: Response,
-  parser: { parse(input: unknown): T },
-) {
-  const payload = await response.json().catch(() => null);
-
-  if (!response.ok) {
-    const message =
-      payload &&
-      typeof payload === "object" &&
-      "error" in payload &&
-      typeof payload.error === "string"
-        ? payload.error
-        : `Request failed with status ${response.status}`;
-    throw new Error(message);
-  }
-
-  return parser.parse(payload);
-}
+const apiBaseUrl = getBrowserApiBaseUrl();
 
 function formatTimestamp(value: string | null | undefined) {
   if (!value) return "unknown";
@@ -94,13 +80,8 @@ export function WorkspaceAuthPanel({ workspaceSlug }: WorkspaceAuthPanelProps) {
 
     const load = async () => {
       try {
-        const configResponse = await fetch(`${apiBaseUrl}/api/v1/auth/config`, {
-          cache: "no-store",
-          credentials: "include",
-        });
-
-        const nextConfig = await parseResponse(
-          configResponse,
+        const nextConfig = await fetchBrowserApi(
+          "/api/v1/auth/config",
           authConfigSchema,
         );
 
@@ -111,15 +92,8 @@ export function WorkspaceAuthPanel({ workspaceSlug }: WorkspaceAuthPanelProps) {
           return;
         }
 
-        const sessionResponse = await fetch(
-          `${apiBaseUrl}/api/v1/auth/session?workspaceSlug=${encodeURIComponent(workspaceSlug)}`,
-          {
-            cache: "no-store",
-            credentials: "include",
-          },
-        );
-        const nextSession = await parseResponse(
-          sessionResponse,
+        const nextSession = await fetchBrowserApi(
+          `/api/v1/auth/session?workspaceSlug=${encodeURIComponent(workspaceSlug)}`,
           authSessionSchema,
         );
 
@@ -164,7 +138,7 @@ export function WorkspaceAuthPanel({ workspaceSlug }: WorkspaceAuthPanelProps) {
         }),
       })
         .then((response) =>
-          parseResponse(response, authEmailConsumeResponseSchema),
+          parseApiResponse(response, authEmailConsumeResponseSchema),
         )
         .then((payload) => {
           setPreviewUrl(null);
@@ -194,25 +168,13 @@ export function WorkspaceAuthPanel({ workspaceSlug }: WorkspaceAuthPanelProps) {
 
     const loadAuthControlPlane = async () => {
       try {
-        const [sessionsResponse, activityResponse] = await Promise.all([
-          fetch(`${apiBaseUrl}/api/v1/auth/sessions`, {
-            cache: "no-store",
-            credentials: "include",
-          }),
-          fetch(`${apiBaseUrl}/api/v1/auth/activity?limit=12`, {
-            cache: "no-store",
-            credentials: "include",
-          }),
+        const [nextInventory, nextActivity] = await Promise.all([
+          fetchBrowserApi("/api/v1/auth/sessions", authSessionInventorySchema),
+          fetchBrowserApi(
+            "/api/v1/auth/activity?limit=12",
+            authActivityFeedSchema,
+          ),
         ]);
-
-        const nextInventory = await parseResponse(
-          sessionsResponse,
-          authSessionInventorySchema,
-        );
-        const nextActivity = await parseResponse(
-          activityResponse,
-          authActivityFeedSchema,
-        );
 
         if (cancelled) return;
         setSessionInventory(nextInventory);
@@ -254,7 +216,7 @@ export function WorkspaceAuthPanel({ workspaceSlug }: WorkspaceAuthPanelProps) {
         }),
       })
         .then((response) =>
-          parseResponse(response, authEmailRequestResponseSchema),
+          parseApiResponse(response, authEmailRequestResponseSchema),
         )
         .then((payload) => {
           setStatus(payload.message);
@@ -281,7 +243,7 @@ export function WorkspaceAuthPanel({ workspaceSlug }: WorkspaceAuthPanelProps) {
         credentials: "include",
       })
         .then((response) =>
-          parseResponse(response, { parse: (input) => input }),
+          parseApiResponse(response, { parse: (input) => input }),
         )
         .then(() => {
           setSession({
@@ -324,7 +286,7 @@ export function WorkspaceAuthPanel({ workspaceSlug }: WorkspaceAuthPanelProps) {
         }),
       })
         .then((response) =>
-          parseResponse<AuthSessionRevokeResponse>(
+          parseApiResponse<AuthSessionRevokeResponse>(
             response,
             authSessionRevokeResponseSchema,
           ),
@@ -346,15 +308,8 @@ export function WorkspaceAuthPanel({ workspaceSlug }: WorkspaceAuthPanelProps) {
             return;
           }
 
-          const activityResponse = await fetch(
-            `${apiBaseUrl}/api/v1/auth/activity?limit=12`,
-            {
-              cache: "no-store",
-              credentials: "include",
-            },
-          );
-          const nextActivity = await parseResponse(
-            activityResponse,
+          const nextActivity = await fetchBrowserApi(
+            "/api/v1/auth/activity?limit=12",
             authActivityFeedSchema,
           );
 

@@ -820,6 +820,203 @@ pre,
   border-radius: 24px;
 }
 
+.study-control-surface {
+  display: grid;
+  gap: 20px;
+}
+
+.study-surface-banner,
+.study-control-block,
+.study-control-record {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.56);
+  box-shadow: var(--shadow-soft);
+}
+
+.study-surface-banner {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 18px 20px;
+  border-radius: 24px;
+}
+
+.study-surface-banner h3,
+.study-control-heading h4,
+.study-control-record h4 {
+  margin: 8px 0 0;
+  font-size: 1.08rem;
+}
+
+.study-surface-meta,
+.study-control-actions,
+.study-control-field-row,
+.capability-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.study-surface-meta {
+  justify-content: flex-end;
+}
+
+.viewer-state-chip,
+.capability-pill,
+.study-control-meta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+
+.viewer-state-chip {
+  border: 1px solid var(--line);
+}
+
+.viewer-state-chip.is-authenticated {
+  background: rgba(22, 91, 91, 0.12);
+  color: var(--accent-2);
+}
+
+.viewer-state-chip.is-anonymous {
+  background: rgba(180, 77, 45, 0.12);
+  color: var(--accent);
+}
+
+.capability-pill,
+.study-control-meta {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.68);
+  color: var(--muted);
+}
+
+.study-card-shell {
+  display: grid;
+  gap: 18px;
+}
+
+.study-control-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.study-control-block {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 22px;
+}
+
+.study-control-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.study-control-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(22, 91, 91, 0.2);
+  background: rgba(242, 255, 252, 0.74);
+  color: var(--accent-2);
+  font-size: 0.82rem;
+}
+
+.study-control-form {
+  display: grid;
+  gap: 12px;
+}
+
+.study-control-field {
+  display: grid;
+  gap: 8px;
+}
+
+.study-control-field span {
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.study-control-field input,
+.study-control-field select,
+.study-control-field textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--ink);
+}
+
+.study-control-field input,
+.study-control-field select {
+  min-height: 46px;
+  padding: 0 14px;
+}
+
+.study-control-field textarea {
+  padding: 12px 14px;
+  resize: vertical;
+}
+
+.study-control-field input:focus,
+.study-control-field select:focus,
+.study-control-field textarea:focus {
+  outline: 2px solid rgba(90, 96, 203, 0.18);
+  outline-offset: 2px;
+}
+
+.study-control-actions button {
+  min-height: 42px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent-3), #5067dd);
+  color: #fff8f1;
+  cursor: pointer;
+}
+
+.study-control-actions button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.study-control-list {
+  display: grid;
+  gap: 12px;
+}
+
+.study-control-record {
+  padding: 16px;
+  border-radius: 20px;
+}
+
+.study-control-status,
+.study-control-error,
+.study-control-empty {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.study-control-status {
+  color: var(--accent-2);
+}
+
+.study-control-error {
+  color: var(--accent);
+}
+
+.study-control-empty {
+  color: var(--muted);
+}
+
 .asset-section {
   margin-bottom: 24px;
 }
@@ -954,7 +1151,8 @@ pre,
   .study-grid,
   .asset-grid,
   .opportunity-grid,
-  .auth-grid {
+  .auth-grid,
+  .study-control-grid {
     grid-template-columns: 1fr;
   }
 
@@ -980,7 +1178,10 @@ pre,
   .study-card,
   .opportunity-card,
   .roadmap-column,
-  .dag-shell {
+  .dag-shell,
+  .study-control-block,
+  .study-surface-banner,
+  .study-control-record {
     border-radius: 22px;
   }
 
@@ -990,7 +1191,10 @@ pre,
   .study-card,
   .opportunity-card,
   .roadmap-column,
-  .dag-shell {
+  .dag-shell,
+  .study-control-block,
+  .study-surface-banner,
+  .study-control-record {
     padding: 18px;
   }
 
@@ -1012,6 +1216,11 @@ pre,
   }
 
   .workspace-panel-header {
+    flex-direction: column;
+  }
+
+  .study-surface-banner,
+  .study-control-heading {
     flex-direction: column;
   }
 
